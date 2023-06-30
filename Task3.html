@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    .container {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button-group label {
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .enroll-button {
+      background-color: #4caf50;
+    }
+
+    .clear-button {
+      background-color: #f44336;
+    }
+
+    #displayData {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="website">Website:</label>
+        <input type="text" id="website" name="website">
+      </div>
+      <div class="form-group">
+        <label for="imageLink">Image Link:</label>
+        <input type="text" id="imageLink" name="imageLink">
+      </div>
+      <div class="form-group">
+        <label>Gender:</label>
+        <div class="button-group">
+          <label for="male">
+            <input type="radio" id="male" name="gender" value="male"> Male
+          </label>
+          <label for="female">
+            <input type="radio" id="female" name="gender" value="female"> Female
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Skills:</label>
+        <div class="button-group">
+          <label for="css">
+            <input type="checkbox" id="css" name="skills" value="CSS"> CSS
+          </label>
+          <label for="java">
+            <input type="checkbox" id="java" name="skills" value="Java"> Java
+          </label>
+          <label for="python">
+            <input type="checkbox" id="python" name="skills" value="Python"> Python
+          </label>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="enroll-button">Enroll Student</button>
+        <button type="button" onclick="clearForm()" class="clear-button">Clear</button>
+      </div>
+    </form>
+
+    <div id="displayData"></div>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // Prevent form submission and page reload
+
+      // Get form data
+      var form = document.getElementById('registrationForm');
+      var name = form.name.value;
+      var email = form.email.value;
+      var website = form.website.value;
+      var imageLink = form.imageLink.value;
+      var gender = form.gender.value;
+      var skills = Array.from(form.skills)
+        .filter(function(skill) {
+          return skill.checked;
+        })
+        .map(function(skill) {
+          return skill.value;
+        });
+
+      // Display the data
+      var displayData = document.getElementById('displayData');
+      displayData.innerHTML = '<h3>Registration Details:</h3>' +
+        '<p><strong>Name:</strong> ' + name + '</p>' +
+        '<p><strong>Email:</strong> ' + email + '</p>' +
+        '<p><strong>Website:</strong> ' + website + '</p>' +
+        '<p><strong>Image Link:</strong> ' + imageLink + '</p>' +
+        '<p><strong>Gender:</strong> ' + gender + '</p>' +
+        '<p><strong>Skills:</strong> ' + skills.join(', ') + '</p>';
+
+      // Clear the form
+      form.reset();
+    }
+
+    function clearForm() {
+      var form = document.getElementById('registrationForm');
+      form.reset();
+    }
+  </script>
+</body>
+</html>
